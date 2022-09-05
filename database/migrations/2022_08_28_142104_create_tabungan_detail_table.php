@@ -15,6 +15,13 @@ class CreateTabunganDetailTable extends Migration
     {
         Schema::create('tabungan_detail', function (Blueprint $table) {
             $table->id();
+            $table->char('no_acc', 10);
+            $table->date('tgl_mulai');
+            $table->date('tgl_selesai');
+            $table->string('sandi', 3);
+            $table->integer('jumlah')->default(0);
+            $table->double('bunga', 8, 2)->default(0);
+            $table->char('flag', 2);
             $table->char('created_by', 8)->nullable();
             $table->char('updated_by', 8)->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();

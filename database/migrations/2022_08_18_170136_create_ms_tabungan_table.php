@@ -17,13 +17,13 @@ class CreateMsTabunganTable extends Migration
             $table->id();
             $table->char('jenis', 1);
             $table->string('nama');
-            $table->char('kode', 3);
+            $table->char('kode', 3)->nullable();
             $table->char('created_by', 8)->nullable();
             $table->char('updated_by', 8)->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
             $table->softDeletes($column = 'deleted_at')->nullable();
-            $table->index(['jenis', 'kode']);
+            $table->index(['jenis']);
         });
     }
 

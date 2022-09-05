@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Anggota;
 use App\Models\Potong;
 use Validator;
+use DB;
 
 class PotongController extends BaseController
 {
     public function potong()
     {
         $auth = Auth::user(); 
-        $data = Anggota::with('potong')->where('nik', $auth->nik)->get();
+        $potong = Potong::where('nik', $auth->nik)->select('*', DB::raw("(potong+biaya+jasa) as total"))->get();
+        // $total = Potong::where('nik', $auth->nik)->select(DB::raw("SUM(potong) as potong"), DB::raw("SUM(biaya) as biaya"), DB::raw("SUM(jasa) as jasa"))->first();
+
+        $data = $potong;
+        // $data['total'] = $total;
         return $this->sendResponse($data, 'Success!');
     }
 }

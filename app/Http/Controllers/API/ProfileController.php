@@ -14,6 +14,6 @@ class ProfileController extends BaseController
     {   
         $auth = Auth::user(); 
         $data = Anggota::where('nik', $auth->nik)->first();
-        return $this->sendResponse($data, 'Success!');
+        return $this->sendResponse($data, 'Berhasil!');
     }   
 }

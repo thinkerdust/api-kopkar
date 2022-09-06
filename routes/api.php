@@ -44,5 +44,6 @@ Route::middleware('auth:sanctum')->group( function () {
 
     // Tabungan
     Route::get('/tabungan/jenis', [TabunganController::class, 'jenis_tabungan']);
+    Route::post('/tabungan/detail', [TabunganController::class, 'detail_tabungan']);
 
 });

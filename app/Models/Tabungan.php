@@ -11,4 +11,9 @@ class Tabungan extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'tabungan';
     protected $dates = ['deleted_at'];
+
+    public function tabungan_detail()
+    {
+        return $this->hasMany(TabunganDetail::class, 'no_acc', 'no_acc');
+    }
 }

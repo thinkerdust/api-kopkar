@@ -30,6 +30,6 @@ class PinjamanController extends BaseController
 
         $auth = Auth::user(); 
         $data = Pinjaman::with('ms_pinjaman')->where([['kode_pjmn',$request->kode], ['nik', $auth->nik]])->get();
-        return $this->sendResponse($data, 'Success!');
+        return $this->sendResponse($data, 'Berhasil!');
     }
 }

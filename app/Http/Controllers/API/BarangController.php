@@ -13,12 +13,12 @@ class BarangController extends BaseController
     public function kategori()
     {
         $data = Kategori::get();
-        return $this->sendResponse($data, 'Success!');
+        return $this->sendResponse($data, 'Berhasil!');
     }
 
     public function barang()
     {
         $data = Barang::with('kategori')->get();
-        return $this->sendResponse($data, 'Success!');
+        return $this->sendResponse($data, 'Berhasil!');
     }
 }

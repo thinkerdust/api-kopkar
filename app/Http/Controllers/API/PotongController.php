@@ -20,6 +20,6 @@ class PotongController extends BaseController
 
         $data = $potong;
         // $data['total'] = $total;
-        return $this->sendResponse($data, 'Success!');
+        return $this->sendResponse($data, 'Berhasil!');
     }
 }

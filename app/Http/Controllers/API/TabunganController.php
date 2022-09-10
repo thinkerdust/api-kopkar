@@ -13,8 +13,13 @@ class TabunganController extends BaseController
 {
     public function jenis_tabungan()
     {
-        $data = MasterTabungan::get();
-        return $this->sendResponse($data, 'Success!');
+        $auth = Auth::user();
+        $data = MasterTabungan::join('tabungan', 'ms_tabungan.jenis', '=', DB::raw('left(tabungan.no_acc, 1)'))
+                    ->where('tabungan.nik', $auth->nik)
+                    ->select('ms_tabungan.id', 'ms_tabungan.jenis', 'ms_tabungan.nama')
+                    ->orderBy('ms_tabungan.id')
+                    ->get();
+        return $this->sendResponse($data, 'Berhasil!');
     }
 
     public function detail_tabungan(Request $request)

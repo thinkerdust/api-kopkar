@@ -17,7 +17,7 @@ class PinjamanController extends BaseController
         $auth = Auth::user(); 
         $data = MasterPinjaman::join('pinjaman', 'ms_pinjaman.kode', '=', 'pinjaman.kode_pjmn')
                     ->where('pinjaman.nik', $auth->nik)
-                    ->select('ms_pinjaman.id', 'ms_pinjaman.kode', 'ms_pinjaman.nama')
+                    ->select('ms_pinjaman.*')
                     ->orderBy('ms_pinjaman.id')
                     ->get();
         return $this->sendResponse($data, 'Success!');

@@ -12,6 +12,14 @@ class Pinjaman extends Model
     protected $table = 'pinjaman';
     protected $dates = ['deleted_at'];
 
+    protected $hidden = [
+        'created_at',
+        'created_by',
+        'updated_at',
+        'updated_by',
+        'deleted_at'
+    ];
+
     public function ms_pinjaman()
     {
         return $this->belongsTo(MasterPinjaman::class, 'kode_pjmn', 'kode');

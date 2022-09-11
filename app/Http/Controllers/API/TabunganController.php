@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MasterTabungan;
 use App\Models\Tabungan;
+use App\Models\TabunganDetail;
+use Validator;
 use DB;
 
 class TabunganController extends BaseController
@@ -24,14 +26,26 @@ class TabunganController extends BaseController
 
     public function detail_tabungan(Request $request)
     {
-        $auth = Auth::user();
-        $data = Tabungan::with('tabungan_detail')->where('tabungan.nik', $auth->nik);
-
-        $jenis = $request->jenis;
-        if($jenis) {
-            $data->whereRaw('left(tabungan.no_acc, 1) = ?', [$jenis]);
+        $validator = Validator::make($request->all(), [
+            'jenis' => 'required|exists:ms_tabungan,jenis',
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError($validator->errors());       
         }
+
+        $auth = Auth::user();
+        $data = [];
+        $jenis = $request->jenis;
+        $tabungan = Tabungan::where('tabungan.nik', $auth->nik)
+                ->whereRaw('left(tabungan.no_acc, 1) = ?', [$jenis])
+                ->first();
+
+        $tabungan_detail = TabunganDetail::where('no_acc', $tabungan->no_acc)->get();
         
-        return $this->sendResponse($data->get(), 'Berhasil!');
+        $data = $tabungan;
+        $data['tabungan_detail'] = $tabungan_detail;
+        
+        return $this->sendResponse($data, 'Berhasil!');
     }
 }

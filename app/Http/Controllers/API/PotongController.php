@@ -20,6 +20,11 @@ class PotongController extends BaseController
 
         $data = $potong;
         // $data['total'] = $total;
-        return $this->sendResponse($data, 'Berhasil!');
+        
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 }

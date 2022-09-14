@@ -21,7 +21,12 @@ class PinjamanController extends BaseController
                     ->groupBy('ms_pinjaman.kode', 'ms_pinjaman.nama', 'ms_pinjaman.batas', 'ms_pinjaman.jumlah', 'ms_pinjaman.bunga')
                     ->orderBy('ms_pinjaman.kode')
                     ->get();
-        return $this->sendResponse($data, 'Success!');
+        
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 
     public function detail_pinjaman(Request $request)
@@ -36,6 +41,11 @@ class PinjamanController extends BaseController
 
         $auth = Auth::user(); 
         $data = Pinjaman::with('ms_pinjaman')->where([['kode_pjmn',$request->kode], ['nik', $auth->nik]])->get();
-        return $this->sendResponse($data, 'Berhasil!');
+        
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 }

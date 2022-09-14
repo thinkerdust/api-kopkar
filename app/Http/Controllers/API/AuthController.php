@@ -23,7 +23,7 @@ class AuthController extends BaseController
             return $this->sendResponse($success, 'User logged-in!');
         } 
         else{ 
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+            return $this->sendError('NIK atau Password anda salah!');
         } 
     }
 

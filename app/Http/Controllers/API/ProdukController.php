@@ -11,6 +11,11 @@ class ProdukController extends BaseController
     public function index()
     {
         $data = Produk::get();
-        return $this->sendResponse($data, 'Berhasil!');
+        
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 }

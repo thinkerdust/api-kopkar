@@ -6,14 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Anggota extends Model
+class TrxSimpSukarela extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table = 'anggota';
+    protected $table = 'trx_simpanan_sukarela';
     protected $dates = ['deleted_at'];
-
-    public function potong()
-    {
-        return $this->hasMany(Potong::class, 'nik', 'nik');
-    }
 }

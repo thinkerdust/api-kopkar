@@ -28,12 +28,14 @@ class CreatePinjamanTable extends Migration
             $table->boolean('flag')->default(0);
             $table->integer('bunga')->default(0);
             $table->text('note')->nullable();
+            $table->date('tgl_lunas')->nullable();
+            $table->integer('pelunasan')->default(0);
             $table->char('created_by', 8)->nullable();
             $table->char('updated_by', 8)->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
             $table->softDeletes($column = 'deleted_at')->nullable();
-            $table->index(['kode_pjmn', 'nik']);
+            $table->index(['kode_pjmn', 'nik', 'nota']);
         });
     }
 

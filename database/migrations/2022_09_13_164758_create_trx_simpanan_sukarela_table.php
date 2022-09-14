@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTabunganDetailTable extends Migration
+class CreateTrxSimpananSukarelaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,20 @@ class CreateTabunganDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('tabungan_detail', function (Blueprint $table) {
+        Schema::create('trx_simpanan_sukarela', function (Blueprint $table) {
             $table->id();
-            $table->char('no_acc', 10);
+            $table->char('nik', 8);
             $table->date('tanggal');
-            $table->string('sandi', 3);
-            $table->integer('jumlah')->default(0);
-            $table->double('bunga', 8, 2)->default(0);
-            $table->char('flag', 2);
+            $table->boolean('tipe')->default(0);
+            $table->text('note')->nullable();
+            $table->integer('jumlah')->default(0)->nullable();
+            $table->integer('bunga')->default(0)->nullable();
             $table->char('created_by', 8)->nullable();
             $table->char('updated_by', 8)->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
             $table->softDeletes($column = 'deleted_at')->nullable();
-            $table->index(['no_acc', 'sandi', 'tanggal']);
+            $table->index(['tipe', 'nik', 'tanggal']);
         });
     }
 
@@ -37,6 +37,6 @@ class CreateTabunganDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tabungan_detail');
+        Schema::dropIfExists('trx_simpanan_sukarela');
     }
 }

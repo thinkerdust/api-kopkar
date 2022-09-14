@@ -15,7 +15,12 @@ class BarangController extends BaseController
     public function kategori()
     {
         $data = Kategori::get();
-        return $this->sendResponse($data, 'Berhasil!');
+
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 
     public function barang(Request $request)
@@ -29,6 +34,11 @@ class BarangController extends BaseController
         }
 
         $data = Barang::with('kategori')->where('kode_ktgori',$request->kode)->get();
-        return $this->sendResponse($data, 'Berhasil!');
+        
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 }

@@ -13,6 +13,18 @@ use DB;
 
 class TabunganController extends BaseController
 {
+    public function index()
+    {
+        $auth = Auth::user();
+        $data = Tabungan::where('nik', $auth->nik)->get();
+
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
+    }
+ 
     public function jenis_tabungan()
     {
         $auth = Auth::user();
@@ -21,7 +33,12 @@ class TabunganController extends BaseController
                     ->select('ms_tabungan.id', 'ms_tabungan.jenis', 'ms_tabungan.nama')
                     ->orderBy('ms_tabungan.id')
                     ->get();
-        return $this->sendResponse($data, 'Berhasil!');
+
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 
     public function detail_tabungan(Request $request)
@@ -46,6 +63,10 @@ class TabunganController extends BaseController
         $data = $tabungan;
         $data['tabungan_detail'] = $tabungan_detail;
         
-        return $this->sendResponse($data, 'Berhasil!');
+        if($data->isNotEmpty()){
+            return $this->sendResponse($data, 'Berhasil!');
+        }else{
+            return $this->sendError('Data Kosong!');
+        }
     }
 }

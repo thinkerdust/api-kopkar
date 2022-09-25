@@ -15,6 +15,19 @@ class AuthController extends BaseController
 
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nik' => 'required|exists:anggota,nik',
+            'password' => 'required',
+        ],
+        [
+            'required'  => 'field :attribute harus di isi.',
+            'exists'    => 'field :attribute tidak ditemukan.',
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError($validator->errors(), 200);       
+        }
+
         if(Auth::attempt(['nik' => $request->nik, 'password' => $request->password])){ 
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('AuthToken')->plainTextToken; 
@@ -23,7 +36,7 @@ class AuthController extends BaseController
             return $this->sendResponse($success, 'User logged-in!');
         } 
         else{ 
-            return $this->sendError('NIK atau Password anda salah!');
+            return $this->sendError('NIK atau Password anda salah!', 200);
         } 
     }
 
@@ -38,7 +51,7 @@ class AuthController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+            return $this->sendError($validator->errors(), 200);       
         }
    
         $input = $request->all();
@@ -71,7 +84,7 @@ class AuthController extends BaseController
             );
 
             if($validator->fails()){
-                return $this->sendError($validator->errors());       
+                return $this->sendError($validator->errors(), 200);       
             }
 
             $time = Carbon::now();
@@ -80,7 +93,7 @@ class AuthController extends BaseController
             return $this->sendResponse($success, 'Berhasil!');
         } 
         else{ 
-            return $this->sendError('Password lama anda salah.');
+            return $this->sendError('Password lama anda salah.', 200);
         } 
     }
 

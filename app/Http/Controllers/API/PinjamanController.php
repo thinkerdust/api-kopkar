@@ -25,7 +25,7 @@ class PinjamanController extends BaseController
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 
@@ -33,10 +33,13 @@ class PinjamanController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'kode' => 'required|exists:ms_pinjaman,kode',
+        ],[
+            'required'  => 'field :attribute harus di isi.',
+            'exists'    => 'field :attribute tidak ditemukan.',
         ]);
    
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+            return $this->sendError($validator->errors(), 200);       
         }
 
         $auth = Auth::user(); 
@@ -45,7 +48,7 @@ class PinjamanController extends BaseController
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 }

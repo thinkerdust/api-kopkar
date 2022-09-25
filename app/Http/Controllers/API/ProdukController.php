@@ -15,7 +15,7 @@ class ProdukController extends BaseController
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 }

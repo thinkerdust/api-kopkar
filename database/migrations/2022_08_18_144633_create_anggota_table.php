@@ -36,6 +36,7 @@ class CreateAnggotaTable extends Migration
             $table->char('updated_by', 8)->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
+            $table->softDeletes($column = 'deleted_at')->nullable();
             $table->index('nik');
         });
     }

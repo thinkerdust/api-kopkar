@@ -19,7 +19,7 @@ class BarangController extends BaseController
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 
@@ -27,10 +27,13 @@ class BarangController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'kode' => 'required|exists:kategori,kode',
+        ],[
+            'required'  => 'field :attribute harus di isi.',
+            'exists'    => 'field :attribute tidak ditemukan.',
         ]);
    
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+            return $this->sendError($validator->errors(), 200);       
         }
 
         $data = Barang::with('kategori')->where('kode_ktgori',$request->kode)->get();
@@ -38,7 +41,7 @@ class BarangController extends BaseController
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 }

@@ -15,16 +15,12 @@ class PotongController extends BaseController
     public function potong()
     {
         $auth = Auth::user(); 
-        $potong = Potong::where('nik', $auth->nik)->select('*', DB::raw("(potong+biaya+jasa) as total"))->get();
-        // $total = Potong::where('nik', $auth->nik)->select(DB::raw("SUM(potong) as potong"), DB::raw("SUM(biaya) as biaya"), DB::raw("SUM(jasa) as jasa"))->first();
-
-        $data = $potong;
-        // $data['total'] = $total;
+        $data = Potong::where('nik', $auth->nik)->select('*', DB::raw("(potong+biaya+jasa) as total"))->get();
         
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
-            return $this->sendError('Data Kosong!');
+            return $this->sendError('Data Kosong!', 200);
         }
     }
 }

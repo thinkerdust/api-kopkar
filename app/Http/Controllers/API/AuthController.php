@@ -21,11 +21,11 @@ class AuthController extends BaseController
         ],
         [
             'required'  => 'field :attribute harus di isi.',
-            'exists'    => 'field :attribute tidak ditemukan.',
+            'exists'    => ':attribute tidak ditemukan.',
         ]);
    
-        if($validator->fails()){
-            return $this->sendError($validator->errors(), 200);       
+        if($validator->stopOnFirstFailure()->fails()){
+            return $this->sendError($validator->errors()->first(), 200);       
         }
 
         if(Auth::attempt(['nik' => $request->nik, 'password' => $request->password])){ 
@@ -50,8 +50,8 @@ class AuthController extends BaseController
             'confirm_password' => 'required|same:password',
         ]);
    
-        if($validator->fails()){
-            return $this->sendError($validator->errors(), 200);       
+        if($validator->stopOnFirstFailure()->fails()){
+            return $this->sendError($validator->errors()->first(), 200);       
         }
    
         $input = $request->all();
@@ -83,8 +83,8 @@ class AuthController extends BaseController
                 ]
             );
 
-            if($validator->fails()){
-                return $this->sendError($validator->errors(), 200);       
+            if($validator->stopOnFirstFailure()->fails()){
+                return $this->sendError($validator->errors()->first(), 200);       
             }
 
             $time = Carbon::now();

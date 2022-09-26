@@ -29,11 +29,11 @@ class BarangController extends BaseController
             'kode' => 'required|exists:kategori,kode',
         ],[
             'required'  => 'field :attribute harus di isi.',
-            'exists'    => 'field :attribute tidak ditemukan.',
+            'exists'    => ':attribute tidak ditemukan.',
         ]);
    
-        if($validator->fails()){
-            return $this->sendError($validator->errors(), 200);       
+        if($validator->stopOnFirstFailure()->fails()){
+            return $this->sendError($validator->errors()->first(), 200);       
         }
 
         $data = Barang::with('kategori')->where('kode_ktgori',$request->kode)->get();

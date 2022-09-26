@@ -47,11 +47,11 @@ class TabunganController extends BaseController
             'jenis' => 'required|exists:ms_tabungan,jenis',
         ],[
             'required'  => 'field :attribute harus di isi.',
-            'exists'    => 'field :attribute tidak ditemukan.',
+            'exists'    => ':attribute tidak ditemukan.',
         ]);
    
-        if($validator->fails()){
-            return $this->sendError($validator->errors(), 200);       
+        if($validator->stopOnFirstFailure()->fails()){
+            return $this->sendError($validator->errors()->first(), 200);       
         }
 
         $auth = Auth::user();

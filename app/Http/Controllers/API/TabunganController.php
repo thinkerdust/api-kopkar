@@ -66,7 +66,7 @@ class TabunganController extends BaseController
         $data = $tabungan;
         $data['tabungan_detail'] = $tabungan_detail;
         
-        if($data->isNotEmpty()){
+        if($data){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
             return $this->sendError('Data Kosong!', 200);

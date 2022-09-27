@@ -44,7 +44,7 @@ class TabunganController extends BaseController
     public function detail_tabungan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'jenis' => 'required|exists:ms_tabungan,jenis',
+            'no_acc' => 'required|exists:tabungan,no_acc',
         ],[
             'required'  => 'field :attribute harus di isi.',
             'exists'    => ':attribute tidak ditemukan.',
@@ -55,18 +55,9 @@ class TabunganController extends BaseController
         }
 
         $auth = Auth::user();
-        $data = [];
-        $jenis = $request->jenis;
-        $tabungan = Tabungan::where('tabungan.nik', $auth->nik)
-                ->whereRaw('left(tabungan.no_acc, 1) = ?', [$jenis])
-                ->first();
-
-        $tabungan_detail = TabunganDetail::where('no_acc', $tabungan->no_acc)->get();
+        $data = TabunganDetail::where('no_acc', $request->no_acc)->get();
         
-        $data = $tabungan;
-        $data['tabungan_detail'] = $tabungan_detail;
-        
-        if($data){
+        if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');
         }else{
             return $this->sendError('Data Kosong!', 200);

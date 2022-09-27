@@ -11,4 +11,5 @@ class TabunganDetail extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'tabungan_detail';
     protected $dates = ['deleted_at'];
+    
 }

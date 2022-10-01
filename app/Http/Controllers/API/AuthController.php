@@ -29,6 +29,10 @@ class AuthController extends BaseController
         }
 
         if(Auth::attempt(['nik' => $request->nik, 'password' => $request->password])){ 
+            if(auth('sanctum')->check()){
+                auth()->user()->tokens()->delete();
+            }
+            
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('AuthToken')->plainTextToken; 
             $success['nik'] =  $auth->nik;

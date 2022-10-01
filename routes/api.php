@@ -10,6 +10,7 @@ use App\Http\Controllers\API\BarangController;
 use App\Http\Controllers\API\PotongController;
 use App\Http\Controllers\API\TabunganController;
 use App\Http\Controllers\API\ProdukController;
+use App\Http\Controllers\API\TokoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::middleware(['auth:sanctum', 'log.api'])->group( function () {
 
     // Anggota 
     Route::get('/anggota/profil', [AnggotaController::class, 'index']);
-    Route::get('/anggota/transaksi_sukarela', [AnggotaController::class, 'transaksi_simpanan_sukarela']);
+    Route::post('/anggota/transaksi_sukarela', [AnggotaController::class, 'transaksi_simpanan_sukarela']);
 
     // Pinjaman
     Route::get('/pinjaman/jenis', [PinjamanController::class, 'jenis_pinjaman']);
@@ -54,4 +55,7 @@ Route::middleware(['auth:sanctum', 'log.api'])->group( function () {
 
     // Produk
     Route::get('/produk', [ProdukController::class, 'index']);
+
+    // Toko
+    Route::post('/toko/transaksi', [TokoController::class, 'transaksi']);
 });

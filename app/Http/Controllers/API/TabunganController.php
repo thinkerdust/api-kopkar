@@ -55,7 +55,9 @@ class TabunganController extends BaseController
         }
 
         $auth = Auth::user();
-        $data = TabunganDetail::where('no_acc', $request->no_acc)->get();
+        $data = TabunganDetail::where('no_acc', $request->no_acc)
+                    ->orderBy('tanggal', 'desc')
+                    ->get();
         
         if($data->isNotEmpty()){
             return $this->sendResponse($data, 'Berhasil!');

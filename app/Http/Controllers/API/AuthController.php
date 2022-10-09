@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
+use App\Models\LoggingAPI;
 use Carbon\Carbon;
 use Validator;
    
@@ -36,10 +37,18 @@ class AuthController extends BaseController
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('AuthToken')->plainTextToken; 
             $success['nik'] =  $auth->nik;
+
+            LoggingAPI::create([
+                'uri' => $request->getUri(),
+                'method' => $request->getMethod(),
+                'request' => json_encode($request->all()),
+                'response' => json_encode($success),
+                'ip' => $request->ip(),
+                'user_id' => $auth->id,
+            ]);
    
             return $this->sendResponse($success, 'User logged-in!');
-        } 
-        else{ 
+        }else{ 
             return $this->sendError('NIK atau Password anda salah!', 200);
         } 
     }

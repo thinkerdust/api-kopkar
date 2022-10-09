@@ -23,7 +23,7 @@ use App\Http\Controllers\API\TokoController;
 |
 */
 
-Route::post('/auth/login', [AuthController::class, 'login'])->middleware('log.api');
+Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register'])->middleware('log.api');
 
 Route::middleware(['auth:sanctum', 'log.api'])->group( function () {

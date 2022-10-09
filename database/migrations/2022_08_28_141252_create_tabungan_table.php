@@ -23,6 +23,7 @@ class CreateTabunganTable extends Migration
             $table->date('tgl_selesai');
             $table->boolean('status')->default(0);
             $table->double('bunga', 8, 2)->default(0);
+            $table->integer('saldo')->default(0);
             $table->integer('potong')->default(0);
             $table->boolean('flag_potong')->default(0);
             $table->char('created_by', 8)->nullable();

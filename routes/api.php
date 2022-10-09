@@ -58,4 +58,5 @@ Route::middleware(['auth:sanctum', 'log.api'])->group( function () {
 
     // Toko
     Route::post('/toko/transaksi', [TokoController::class, 'transaksi']);
+    Route::post('/toko/transaksi-detail', [TokoController::class, 'detail_transaksi']);
 });

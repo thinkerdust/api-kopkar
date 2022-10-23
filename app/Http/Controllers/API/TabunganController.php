@@ -55,8 +55,10 @@ class TabunganController extends BaseController
         }
 
         $auth = Auth::user();
-        $data = TabunganDetail::where('no_acc', $request->no_acc)
-                    ->orderBy('tanggal', 'desc')
+        $data = DB::table('tabungan_detail as td')->where('td.no_acc', $request->no_acc)
+                    ->join('tabungan_sandi as ts', 'ts.sandi', '=', 'td.sandi')
+                    ->orderBy('td.tanggal', 'desc')
+                    ->select('td.id', 'td.no_acc', 'td.tanggal', 'td.jumlah', 'td.bunga', 'td.flag', 'ts.nama as sandi')
                     ->get();
         
         if($data->isNotEmpty()){

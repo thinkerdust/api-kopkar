@@ -11,6 +11,7 @@ use App\Http\Controllers\API\PotongController;
 use App\Http\Controllers\API\TabunganController;
 use App\Http\Controllers\API\ProdukController;
 use App\Http\Controllers\API\TokoController;
+use App\Http\Controllers\API\ProdukLayananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,9 @@ Route::middleware(['auth:sanctum', 'log.api'])->group( function () {
 
     // Produk
     Route::get('/produk', [ProdukController::class, 'index']);
+
+    // Produk Layanan
+    Route::get('/produk-layanan', [ProdukLayananController::class, 'index']);
 
     // Toko
     Route::post('/toko/transaksi', [TokoController::class, 'transaksi']);

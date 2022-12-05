@@ -17,7 +17,7 @@ class AuthController extends BaseController
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|exists:anggota,nik',
+            'nik' => 'required|exists:users,nik',
             'password' => 'required',
         ],
         [
@@ -56,7 +56,7 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|exists:anggota,nik',
+            'nik' => 'required|exists:users,nik',
             'username' => 'required|max:255',
             'email' => 'nullable|email|max:255',
             'password' => 'required|min:4|max:255',

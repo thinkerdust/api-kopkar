@@ -15,6 +15,7 @@ class CreateProdukTable extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->id();
+            $table->integer('kode')->default(0);
             $table->string('nama');
             $table->integer('biaya')->default(0);
             $table->integer('jasa')->default(0);
